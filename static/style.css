@@ -1,0 +1,77 @@
+.bgnav {
+  background: #0d0d0d; 
+}
+
+.kosong {
+    margin: 100vh;
+}
+
+
+/* ===== Footer Fotografi Style ===== */
+.footer {
+  background: #0d0d0d; 
+  color: #e0e0e0;
+  padding: 60px 0 20px 0;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer p {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer a:hover {
+  color: #ff9900; /* aksen hangat fotografi */
+}
+
+/* Social Icons */
+.social-icons a {
+  font-size: 1.4rem;
+  margin-right: 15px;
+  display: inline-block;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff9900;
+  transform: translateY(-3px);
+}
+
+/* Contact Info */
+.contact-info i {
+  color: #ff9900;
+  margin-right: 8px;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 15px;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.footer-bottom a {
+  color: #aaa;
+}
+
+.footer-bottom a:hover {
+  color: #ff9900;
+}
