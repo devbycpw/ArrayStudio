@@ -51,6 +51,12 @@
         $email = $data['email'];
         $service = $data['email'];
         $schedule = $data['schedule'];
+
+        $query = "INSERT INTO booking VALUES ('','$username','$email','$service','$schedule')";
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
     }   
+
+
     
 ?>

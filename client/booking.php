@@ -8,13 +8,13 @@
     
     if (isset($_POST['submit'])) {
         if (insbook($_POST)) {
-            echo "<script>alert('Booking berhasil, sedang menunggu konfirmasi admin.');</script>";
+            echo "<script>alert('Booking berhasil, sedang menunggu konfirmasi admin.');document.location.href='index.php';</script>";
         }else {
             echo "<script>alert('Booking gagal, sedang menunggu konfirmasi admin.');</script>";
         }
     }
 ?>  
-    <form action="booking_process.php" method="post">
+    <form action="" method="post">
         <label for="username">Nama Lengkap: </label>
         <input type="text" id="username" name="username">
 

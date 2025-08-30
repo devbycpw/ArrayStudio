@@ -1,8 +1,10 @@
 <?php
     require '../database.php';
-    include '../layouts/main.php';
+    require '../layouts/main.php';
     include '../layouts/navbarClient.php';
-    ?>
+
+    
+?>
 
 
     

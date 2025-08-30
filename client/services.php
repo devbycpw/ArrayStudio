@@ -16,7 +16,7 @@
                             <input type='hidden' name='id_service' value='<?= $row['id_service']?>'>
                             <button class='btn btn-dark'>book now</button>
                         </form>
-                        <p class='card-text'><small class='text-body-secondary'><?= timeAgo($row['created_at'])?></small></p>
+                        <p class='card-text'><small class='text-body-secondary'><?= timeAgo($row['created_at'])?> </small></p>
                     </div>
                 </div>
             <?php endwhile; ?>
