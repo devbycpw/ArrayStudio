@@ -8,7 +8,7 @@
     <div class="container my-4">
         <div class="row">
             <?php foreach ($gallery as $row) : ?>
-            <div class="col-md-3 mb-4"> <!-- 12 / 3 = 4 kolom -->
+            <div class="col-md-3 mb-4"> 
                 <div class="card h-100">
                 <img src="../img/<?= $row["image_url"]; ?>" class="card-img-top" alt="...">
                 </div>

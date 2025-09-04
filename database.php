@@ -46,17 +46,47 @@
     }
 
     function insbook($data){
+        session_start();
         global $conn;
-        $username = $data['username'];
-        $email = $data['email'];
-        $service = $data['email'];
+        $id_user = $_SESSION['id_user'];
+        $id_service = $data['service'];
         $schedule = $data['schedule'];
+        $status = "pending";
 
-        $query = "INSERT INTO booking VALUES ('','$username','$email','$service','$schedule')";
+        $query = "INSERT INTO bookings (id_user, id_service, booking_date, status, created_at, updated_at) VALUES ('$id_user,'$id_service','$schedule','$status',NOW(),NOW())";
         mysqli_query($conn, $query);
         return mysqli_affected_rows($conn);
     }   
 
+    function register($data){
+        global $conn;
 
+        $username = strtolower(stripslashes($data['username']));
+        $email = mysqli_real_escape_string($conn, $data['email']);
+        $password = mysqli_real_escape_string($conn, $data['password']);
+        $konfirmasi = mysqli_real_escape_string($conn, $data['konfirmasi']);
+        $role = 'client';
+
+        $result = mysqli_query($conn, "SELECT name FROM users WHERE name = '$username' OR email = '$email'");
+        
+        if (mysqli_fetch_assoc($result)) {
+            echo "<script>
+                alert('username dan email sudah terdaftar');
+            </script>";
+            return false;
+        }
+        
+        if ($password !== $konfirmasi) {
+            echo"<script>
+                alert('konfirmasi password tidak sesuai');
+            </script>";
+            return false;
+        }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $user = "INSERT INTO users(name,email,password,role) VALUES ('$username', '$email', '$password', '$role')";
+        mysqli_query($conn, $user);
+        return mysqli_affected_rows($conn);
+    }
     
 ?>
