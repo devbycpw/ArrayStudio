@@ -1,7 +1,13 @@
-<?php require '../layouts/main.php';?>
-<body>
-    <?php include '../layouts/navbarClient.php';?>
-    gallery
-    <?php include '../layouts/footer.php';?>
+<?php require '../layouts/main.php';
+    include '../layouts/navbarClient.php';
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header("Location: ../auth/login.php");
+        exit;
+    }
+?>
 
-</body>
+    gallery
+
+<?php include '../layouts/footer.php';?>
+

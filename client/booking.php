@@ -3,44 +3,139 @@
     require '../database.php';
     require '../layouts/main.php';
     include '../layouts/navbarClient.php';
+    
+    if(!isset($_SESSION["login"])){
+        header("Location: ../auth/login.php");
+        exit;
+    }
 
     $id_service = isset($_GET['id_service']) ? $_GET['id_service'] : null;
+    $id_user = $_SESSION['id_user'];
     $username = $_SESSION['username'];
     $email = $_SESSION['email'];
     $services = query("SELECT * FROM services");
 
+    $cekBooking = query("SELECT b.*, s.name AS service_name, s.price 
+                    FROM bookings b 
+                    JOIN services s ON b.id_service = s.id_service
+                    WHERE b.id_user = '$id_user' AND b.status = 'pending' 
+                    LIMIT 1");
     
     if (isset($_POST['submit'])) {
         if (insbook($_POST)) {
-            echo "<script>alert('Booking berhasil, sedang menunggu konfirmasi admin.');document.location.href='index.php';</script>";
-        }else {
-            echo "<script>alert('Booking gagal, sedang menunggu konfirmasi admin.');</script>";
+            echo "<script>alert('Booking berhasil, sedang menunggu konfirmasi admin.');document.location.href='booking.php'</script>";
+        } else {
+            echo "<script>alert('Booking gagal.');</script>";
         }
     }
+
+    if (isset($_POST['cancel_booking'])) {
+        mysqli_query($conn,"UPDATE bookings 
+                        SET status='cancelled', updated_at=NOW() 
+                        WHERE id_user = '$id_user' AND status='pending'");
+    }
 ?>  
-    
-    <label for="username">Nama Lengkap: </label>
-    <input type="text" id="username" name="username" value="<?= $username ?>" readonly>
 
-    <label for="email">Email: </label>
-    <input type="email" name="email" id="email" value="<?= $email ?>" readonly>
-    
-    <form action="" method="post">
-        <label for="">service : </label>
-        <select name="service" id="service" required>
-            <option value="">-- pilih kategori --</option>
-            <?php foreach ($services as $row) : ?>
-                <option value="<?=$row['id_service']?>"
-                    <?= ($id_service==$row['id_service']) ? 'selected' : ''?>>
-                    <?=$row['name'];?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+<style>
+  body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+  }
+  .card-custom {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .btn-primary-custom {
+    background-color: #ff9900;
+    border: none;
+    color: #0d0d0d;
+    font-weight: bold;
+  }
+  .btn-primary-custom:hover {
+    background-color: #ffd580;
+    color: #0d0d0d;
+  }
+  .btn-danger {
+    background-color: #cc3333;
+    border: none;
+  }
+  .btn-danger:hover {
+    background-color: #ff4d4d;
+  }
+  label {
+    font-weight: 500;
+    margin-top: 10px;
+  }
+</style>
 
-        <label for="schedule">schedule</label>
-        <input type="date" id="schedule" name="schedule" min="<?= date('Y-m-d') ?>" required>
-        <button type="submit" name="submit">Book Now</button>
-    </form>
-<?php
-    include '../layouts/footer.php';
-?>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card-custom">
+        <?php if (!empty($cekBooking)) : ?>
+            <h3 class="text-warning mb-4 text-center">Your Current Booking</h3>
+            
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item bg-transparent text-light"><strong>Name:</strong> <?= htmlspecialchars($username) ?></li>
+              <li class="list-group-item bg-transparent text-light"><strong>Service:</strong> <?= htmlspecialchars($cekBooking[0]['service_name']) ?></li>
+              <li class="list-group-item bg-transparent text-light"><strong>Price:</strong> Rp <?= number_format($cekBooking[0]['price'], 0, ',', '.') ?></li>
+              <li class="list-group-item bg-transparent text-light"><strong>Schedule:</strong> <?= date('d-m-Y', strtotime($cekBooking[0]['booking_date'])) ?></li>
+              <li class="list-group-item bg-transparent text-light"><strong>Status:</strong> 
+                <span class="badge bg-warning text-dark"><?= ucfirst($cekBooking[0]['status']) ?></span>
+              </li>
+              <li class="list-group-item bg-transparent text-light"><strong>Created At:</strong> <?= date('d-m-Y H:i', strtotime($cekBooking[0]['created_at'])) ?></li>
+            </ul>
+
+            <form method="post" class="text-center">
+                <button type="submit" name="cancel_booking" class="btn btn-danger px-4">Cancel Booking</button>
+            </form>
+
+        <?php else : ?>
+            <h3 class="text-warning mb-4 text-center">Book a Service</h3>
+            
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="username">Full Name</label>
+                    <input type="text" id="username" name="username" value="<?= $username ?>" class="form-control bg-dark text-light" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="<?= $email ?>" class="form-control bg-dark text-light" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="service">Select Service</label>
+                    <select name="service" id="service" class="form-select bg-dark text-light" required>
+                        <option value="">-- choose service --</option>
+                        <?php foreach ($services as $row) : ?>
+                            <option value="<?= $row['id_service'] ?>" <?= ($id_service==$row['id_service']) ? 'selected' : '' ?>>
+                                <?= $row['name']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="schedule">Schedule</label>
+                    <input type="date" id="schedule" name="schedule" min="<?= date('Y-m-d') ?>" class="form-control bg-dark text-light" required>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" name="submit" class="btn btn-primary-custom px-5">Book Now</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="history.php" class="link-light">View Booking History</a>
+            </div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php include '../layouts/footer.php'; ?>

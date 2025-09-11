@@ -1,7 +1,6 @@
 <?php require '../layouts/main.php';
-require '../database.php'; 
+      require '../database.php'; 
 ?>
-  <body>
     <?php include '../layouts/navbarGeneral.php';?>
 
     <img src="../img/hero.jpg" alt="hero" class="img-fluid">
@@ -11,4 +10,3 @@ require '../database.php';
   
     <?php include '../layouts/footer.php';?>
    
-  </body>

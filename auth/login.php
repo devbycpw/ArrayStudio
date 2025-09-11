@@ -4,6 +4,7 @@
     require '../database.php';
 
     if (isset($_POST['login'])) {
+        $id_user = $_POST["id_user"];
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];

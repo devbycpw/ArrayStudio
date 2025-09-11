@@ -46,15 +46,17 @@
     }
 
     function insbook($data){
-        session_start();
         global $conn;
         $id_user = $_SESSION['id_user'];
         $id_service = $data['service'];
         $schedule = $data['schedule'];
         $status = "pending";
 
-        $query = "INSERT INTO bookings (id_user, id_service, booking_date, status, created_at, updated_at) VALUES ('$id_user,'$id_service','$schedule','$status',NOW(),NOW())";
-        mysqli_query($conn, $query);
+        $query = "INSERT INTO bookings (id_user, id_service, booking_date, status, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "iiss", $id_user, $id_service, $schedule, $status);
+        mysqli_stmt_execute($stmt);
+        
         return mysqli_affected_rows($conn);
     }   
 
