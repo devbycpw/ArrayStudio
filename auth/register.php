@@ -1,27 +1,55 @@
-<?php require '../layouts/main.php';
+<?php 
+    require '../layouts/main.php';
     require '../database.php';
+
+    $error = "";
+
     if (isset($_POST["register"])) {
         if (register($_POST) > 0) {
-            echo "<script>alert('user baru berhasil ditambahkan');
-            window.location.href = 'login.php';
-            </script>";
+            echo "<script>alert('User successfully registered!');window.location.href = 'login.php';</script>";
+        } else {
+            $error = "Registration failed. Please try again.";
         }
     }
 ?>
 
-    <h1>Form Register</h1>
+<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #0d0d0d;">
+    <div class="card shadow-lg p-4" style="background-color: #1a1a1a; border: 1px solid #333; width: 100%; max-width: 450px; border-radius: 12px;">
+        <h2 class="text-center mb-4" style="color: #ff9900; font-weight: 700;">Register</h2>
 
-    <form action="" method="post">
-        <label for="username">Username : </label>
-        <input type="text" name="username" id="username">
-        <label for="email">Email : </label>
-        <input type="email" name="email" id="email">
-        <label for="password">Password : </label>
-        <input type="password" name="password" id="password">
-        <label for="konfirmasi">Konfirmasi Password : </label>
-        <input type="password" name="konfirmasi" id="konfirmasi">
-        <button name="register" id="register">registrasi</button>
-    </form>
+        <?php if (!empty($error)) : ?>
+            <div class="alert alert-danger text-center py-2"><?= $error ?></div>
+        <?php endif; ?>
 
-    <p>Sudah punya akun? <a href="login.php">Masuk sekarang</a></p>
+        <form method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label text-light">Username</label>
+                <input type="text" class="form-control bg-dark text-light border-0" name="username" id="username" required>
+            </div>
 
+            <div class="mb-3">
+                <label for="email" class="form-label text-light">Email</label>
+                <input type="email" class="form-control bg-dark text-light border-0" name="email" id="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label text-light">Password</label>
+                <input type="password" class="form-control bg-dark text-light border-0" name="password" id="password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="konfirmasi" class="form-label text-light">Confirm Password</label>
+                <input type="password" class="form-control bg-dark text-light border-0" name="konfirmasi" id="konfirmasi" required>
+            </div>
+
+            <button type="submit" name="register" class="btn w-100"
+                style="background-color: #ff9900; color: #0d0d0d; font-weight: 600; border-radius: 8px;">
+                Register
+            </button>
+        </form>
+
+        <p class="text-center mt-3" style="color: #e0e0e0;">
+            Already have an account? <a href="login.php" style="color: #ffd580;">Login here</a>
+        </p>
+    </div>
+</div>

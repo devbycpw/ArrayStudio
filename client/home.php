@@ -70,7 +70,7 @@
 <div class="container py-5">
   <div class="row align-items-center">
     <div class="col-md-6 mb-4">
-      <img src="../img/about.jpg" alt="about" class="img-fluid rounded-4 shadow">
+      <img src="../img/pertama.jpg" alt="about" class="img-fluid rounded-4 shadow">
     </div>
     <div class="col-md-6">
       <h2 class="fw-bold mb-3">About Us</h2>
