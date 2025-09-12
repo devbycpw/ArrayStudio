@@ -12,37 +12,8 @@
     $result = $conn->query($sql);
 ?>
 
-<style>
-  body {
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-  }
-  .card-custom {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    transition: transform 0.2s ease-in-out;
-  }
-  .card-custom:hover {
-    transform: translateY(-4px);
-    border-color: #ff9900;
-    box-shadow: 0 4px 12px rgba(255, 153, 0, 0.2);
-  }
-  .btn-primary-custom {
-    background-color: #ff9900;
-    border: none;
-    color: #0d0d0d;
-    font-weight: 600;
-  }
-  .btn-primary-custom:hover {
-    background-color: #ffd580;
-    color: #0d0d0d;
-  }
-  .price {
-    color: #66ccff;
-    font-weight: bold;
-  }
-</style>
+    <link rel="stylesheet" href="../static/services.css">
+
 
 <div class="container py-5">
   <h1 class="text-center text-warning fw-bold mb-4">Our Services</h1>

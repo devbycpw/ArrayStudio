@@ -91,4 +91,36 @@
         return mysqli_affected_rows($conn);
     }
     
+    function tambah($data){
+    global $conn;
+    $name = htmlspecialchars($data["name"]);
+    $description = htmlspecialchars($data["description"]);
+    $price = htmlspecialchars($data["price"]);
+
+    // prepared statement
+    $stmt = mysqli_prepare($conn, "INSERT INTO services(name, description, price) VALUES (?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssd", $name, $description, $price); 
+
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_affected_rows($stmt);
+}
+
+    function edit($data){
+        global $conn;
+        $id = $data["id_service"];
+        $name = htmlspecialchars($data["name"]);
+        $description = htmlspecialchars($data["description"]);
+        $price = htmlspecialchars($data["price"]);
+
+        $query = "UPDATE services SET name='$name', description = '$description', price='$price' WHERE id_service = $id";
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
+
+    }
+
+    function hapus($id){
+        GLOBAL $conn;
+        mysqli_query($conn,"DELETE FROM services WHERE id_service = $id");
+        return mysqli_affected_rows($conn);
+    }
 ?>

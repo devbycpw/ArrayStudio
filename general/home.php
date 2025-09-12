@@ -1,12 +1,118 @@
-<?php require '../layouts/main.php';
-      require '../database.php'; 
+<?php 
+  require '../layouts/main.php';
+  require '../database.php'; 
+  include '../layouts/navbargeneral.php';
 ?>
-    <?php include '../layouts/navbarGeneral.php';?>
 
-    <img src="../img/hero.jpg" alt="hero" class="img-fluid">
+<style>
+  body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+  }
+  .hero-section {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+  }
+  .hero-section img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    opacity: 0.8;
+  }
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .btn-primary-custom {
+    background-color: #ff9900;
+    border: none;
+    color: #0d0d0d;
+    font-weight: bold;
+  }
+  .btn-primary-custom:hover {
+    background-color: #ffd580;
+    color: #0d0d0d;
+  }
+  .card-custom {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+  }
+  .card-custom:hover {
+    transform: translateY(-5px);
+    border-color: #ff9900;
+  }
+  .highlight {
+    color: #66ccff;
+  }
+</style>
 
-    <!-- content -->
-    <div class="kosong"></div>
-  
-    <?php include '../layouts/footer.php';?>
-   
+<!-- Hero Section -->
+<div class="hero-section">
+  <img src="../img/hero.jpg" alt="hero">
+  <div class="hero-text">
+    <h1 class="display-4 fw-bold">Welcome to Our Services</h1>
+    <p class="lead">Empowering you with the best solutions worldwide</p>
+    <a href="services.php" class="btn btn-primary-custom btn-lg">Explore Services</a>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="container py-5">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4">
+      <img src="../img/pertama.jpg" alt="about" class="img-fluid rounded-4 shadow">
+    </div>
+    <div class="col-md-6">
+      <h2 class="fw-bold mb-3">About Us</h2>
+      <p>
+        We are committed to providing <span class="highlight">world-class services</span> 
+        tailored to meet your needs. Our team of experts works with passion and precision 
+        to ensure the best experience for every client.
+      </p>
+      <p>
+        Whether you are looking for personal or professional solutions, we are here to 
+        help you achieve success.
+      </p>
+      <a href="about.php" class="btn btn-primary-custom">Learn More</a>
+    </div>
+  </div>
+</div>
+
+<!-- Services Highlight -->
+<div class="container pb-5">
+  <h2 class="text-center fw-bold mb-4">Our Top Services</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card card-custom p-3 h-100">
+        <h5 class="fw-bold text-warning">Consultation</h5>
+        <p>Get professional advice and tailored solutions from our experienced experts.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-custom p-3 h-100">
+        <h5 class="fw-bold text-warning">Workshops</h5>
+        <p>Join our workshops to upgrade your skills and stay ahead of the curve.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-custom p-3 h-100">
+        <h5 class="fw-bold text-warning">Support</h5>
+        <p>Our support team is available 24/7 to assist you with any concerns.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call To Action -->
+<div class="text-center py-5">
+  <h2 class="fw-bold">Ready to Get Started?</h2>
+  <p class="mb-4">Book your first service today and take the next step toward success.</p>
+  <a href="services.php" class="btn btn-primary-custom btn-lg">Book Now</a>
+</div>
+
+<?php include '../layouts/footer.php'; ?>
