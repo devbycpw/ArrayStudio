@@ -5,6 +5,21 @@
     $gallery = query("SELECT * FROM gallery");
     $i = 1;
 ?>
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px rgba(255, 153, 0, 0.5);
+    }
+
+    .card:hover img {
+        transform: scale(1.05);
+    }
+
+    body {
+        background-color: #0d0d0d;
+        color: #e0e0e0;
+    }
+</style>
 
 <div class="container my-5">
     <h1 class="text-center mb-5" style="color: #ff9900; font-weight: 700;">Our Gallery</h1>
@@ -25,20 +40,6 @@
     </div>
 </div>
 
-<style>
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 15px rgba(255, 153, 0, 0.5);
-    }
 
-    .card:hover img {
-        transform: scale(1.05);
-    }
-
-    body {
-        background-color: #0d0d0d;
-        color: #e0e0e0;
-    }
-</style>
 
 <?php include '../layouts/footer.php';?>
