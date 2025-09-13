@@ -45,20 +45,19 @@
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
-    function insbook($data){
-        global $conn;
-        $id_user = $_SESSION['id_user'];
-        $id_service = $data['service'];
-        $schedule = $data['schedule'];
-        $status = "pending";
+    function insbook($data) {
+    global $conn;
+    $id_user = $_SESSION['id_user'];
+    $id_service = htmlspecialchars($data['service']);
+    $booking_date = htmlspecialchars($data['schedule']);
+    $booking_time = htmlspecialchars($data['time']);
 
-        $query = "INSERT INTO bookings (id_user, id_service, booking_date, status, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "iiss", $id_user, $id_service, $schedule, $status);
-        mysqli_stmt_execute($stmt);
-        
-        return mysqli_affected_rows($conn);
-    }   
+    $query = "INSERT INTO bookings (id_user, id_service, booking_date, booking_time, status, created_at, updated_at)
+              VALUES ('$id_user', '$id_service', '$booking_date', '$booking_time', 'pending', NOW(), NOW())";
+    
+    return mysqli_query($conn, $query);
+    }
+
 
     function register($data){
         global $conn;
@@ -123,4 +122,57 @@
         mysqli_query($conn,"DELETE FROM services WHERE id_service = $id");
         return mysqli_affected_rows($conn);
     }
+
+
+    // Ambil semua booking
+    function getAllBookings() {
+        global $conn;
+        $query = "SELECT b.*, u.name as client_name, s.name as service_name 
+                FROM bookings b 
+                JOIN users u ON b.id_user = u.id_user
+                JOIN services s ON b.id_service = s.id_service
+                ORDER BY b.booking_date, b.booking_time";
+        $result = mysqli_query($conn, $query);
+        $rows = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // Ambil booking dengan status pending
+    function getPendingBookings() {
+        $all = getAllBookings();
+        return array_filter($all, fn($b) => $b['status'] === 'pending');
+    }
+
+    // Update status booking
+    function updateBookingStatus($id_booking, $status) {
+        global $conn;
+        $status = mysqli_real_escape_string($conn, $status);
+        $id_booking = mysqli_real_escape_string($conn, $id_booking);
+
+        $query = "UPDATE bookings SET status='$status' WHERE id_booking='$id_booking'";
+        mysqli_query($conn, $query);
+
+        return mysqli_affected_rows($conn);
+    }
+
+    // Cek jadwal bentrok (hanya pending)
+    function getBentrokDates() {
+        $pending = getPendingBookings();
+        $bentrok = [];
+        foreach ($pending as $p1) {
+            foreach ($pending as $p2) {
+                if ($p1['id_booking'] != $p2['id_booking'] &&
+                    $p1['booking_date'] === $p2['booking_date'] &&
+                    $p1['booking_time'] === $p2['booking_time']) {
+                    $bentrok[] = $p1['booking_date'] . ' ' . $p1['booking_time'];
+                }
+            }
+        }
+        return array_unique($bentrok);
+    }
+
+    
 ?>
