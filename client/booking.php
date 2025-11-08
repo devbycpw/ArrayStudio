@@ -17,12 +17,22 @@ $email = $_SESSION['email'];
 // Ambil data service
 $services = query("SELECT * FROM services");
 
+
+// ambil aprroved 
+$cekPay = query("SELECT * FROM bookings WHERE id_user = '$id_user' AND status = 'approved' LIMIT 1");
+
+
+if(!empty($cekPay)){
+  header("Location: payment.php?id_booking=" . $cekPay[0]['id_booking']);
+}
+
 // Ambil booking aktif user
 $cekBooking = query("SELECT b.*, s.name AS service_name, s.price 
                      FROM bookings b 
                      JOIN services s ON b.id_service = s.id_service
                      WHERE b.id_user = '$id_user' AND b.status = 'pending' 
                      LIMIT 1");
+
 
 // Ambil semua jadwal yang sudah dibooking (pending/approved/confirmed)
 $jadwalTerbooking = query("
@@ -50,6 +60,8 @@ if (isset($_POST['cancel_booking'])) {
     header("Location: booking.php");
     exit;
 }
+
+
 ?>  
 
 <style>

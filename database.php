@@ -1,3 +1,4 @@
+<!-- tes -->
 <?php
     $conn = new mysqli("localhost","root","","latihan2");
 
@@ -122,6 +123,11 @@
         mysqli_query($conn,"DELETE FROM services WHERE id_service = $id");
         return mysqli_affected_rows($conn);
     }
+    function hapus_Gall($id){
+        GLOBAL $conn;
+        mysqli_query($conn,"DELETE FROM gallery WHERE id_gallery = $id");
+        return mysqli_affected_rows($conn);
+    }
 
 
     // Ambil semua booking
@@ -174,5 +180,60 @@
         return array_unique($bentrok);
     }
 
-    
+    function tambahFile($data){
+        global $conn;
+        $category = strtolower($data["category"]);
+        
+        $picture = upload();
+        if (!$picture) {
+            return false;
+        }
+
+        $query = "INSERT INTO gallery(category,image_url) VALUES (?, ?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $category, $picture);
+        mysqli_stmt_execute($stmt);
+        return mysqli_affected_rows($conn);
+    }
+
+    function upload(){
+    $name = $_FILES['picture']['name'];
+    $size = $_FILES['picture']['size'];
+    $error = $_FILES['picture']['error'];
+    $temp = $_FILES['picture']['tmp_name'];
+
+    if ($error === 4) {
+        echo "<script>alert('Pilih gambar terlebih dahulu')</script>";
+        return false;
+    }
+
+    $formatGambar = ['jpg','jpeg','png'];
+    $namaGambar = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+
+    if (!in_array($namaGambar, $formatGambar)) {
+        echo "<script>alert('Yang anda upload bukan gambar!')</script>";
+        return false;
+    }
+
+    if ($size > 2 * 1024 * 1024) {
+        echo "<script>alert('Ukuran gambar terlalu besar! Maksimal 2MB')</script>";
+        return false;
+    }
+
+    $nameGenerate = uniqid('img_', true) . '.' . $namaGambar;
+
+    $uploadDir = __DIR__ . '/img/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    if (move_uploaded_file($temp, $uploadDir . $nameGenerate)) {
+        return $nameGenerate;
+    } else {
+        echo "<script>alert('Gagal memindahkan file. Periksa folder img dan permissionnya.')</script>";
+        return false;
+    }
+}
+
+
 ?>
