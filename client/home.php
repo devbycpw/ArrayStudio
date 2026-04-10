@@ -11,13 +11,12 @@
 
 <style>
   body {
-    background-color: #0d0d0d;
-    color: #e0e0e0;
+    /* Uses global main-bg and text-primary */
   }
   .hero-section {
     position: relative;
     text-align: center;
-    color: #ffffff;
+    color: #fff;
   }
   .hero-section img {
     width: 100%;
@@ -32,24 +31,25 @@
     transform: translate(-50%, -50%);
   }
   .btn-primary-custom {
-    background-color: #ff9900;
+    background: linear-gradient(45deg, var(--primary-gold), var(--primary-gold-dark));
     border: none;
-    color: #0d0d0d;
+    color: #fff !important;
     font-weight: bold;
+    transition: all 0.3s ease;
   }
   .btn-primary-custom:hover {
-    background-color: #ffd580;
-    color: #0d0d0d;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
   }
   .card-custom {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0,0,0,0.05);
     border-radius: 12px;
     transition: transform 0.2s ease-in-out;
   }
   .card-custom:hover {
     transform: translateY(-5px);
-    border-color: #ff9900;
+    border-color: var(--primary-gold);
   }
   .highlight {
     color: #66ccff;
@@ -94,19 +94,19 @@
   <div class="row g-4">
     <div class="col-md-4">
       <div class="card card-custom p-3 h-100">
-        <h5 class="fw-bold text-warning">Consultation</h5>
+        <h5 class="fw-bold text-dark">Consultation</h5>
         <p>Get professional advice and tailored solutions from our experienced experts.</p>
       </div>
     </div>
     <div class="col-md-4">
       <div class="card card-custom p-3 h-100">
-        <h5 class="fw-bold text-warning">Workshops</h5>
+        <h5 class="fw-bold text-dark">Workshops</h5>
         <p>Join our workshops to upgrade your skills and stay ahead of the curve.</p>
       </div>
     </div>
     <div class="col-md-4">
       <div class="card card-custom p-3 h-100">
-        <h5 class="fw-bold text-warning">Support</h5>
+        <h5 class="fw-bold text-dark">Support</h5>
         <p>Our support team is available 24/7 to assist you with any concerns.</p>
       </div>
     </div>

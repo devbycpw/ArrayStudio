@@ -1,6 +1,6 @@
 <!-- tes -->
 <?php
-    $conn = new mysqli("localhost","root","","latihan2");
+    $conn = new mysqli("localhost","root","","photo_studio");
 
     if ($conn -> connect_errno){
         echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
@@ -17,7 +17,10 @@
         return $rows;
     }
 
-    function timeAgo($datetime, $full = false) {
+function timeAgo($datetime, $full = false) {
+        if (empty($datetime) || $datetime === null) {
+            return 'New';
+        }
         $now = new DateTime;
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
@@ -45,6 +48,7 @@
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
+
 
     function insbook($data) {
     global $conn;

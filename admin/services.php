@@ -11,21 +11,21 @@
     }
     $data_services = query('SELECT * FROM services');
 ?>
-<div class="container-fluid" style="background:#0d0d0d; min-height: 100vh; padding: 2rem;">
+<div class="container-fluid" style="background:var(--main-bg); min-height: 100vh; padding: 2rem;">
 
 <div class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-warning">Manage Services</h2>
-    <a href="tambahService.php" class="btn btn-primary" style="background-color:#ff9900;border:none;">
+    <h2 class="text-dark fw-bold">Manage Services</h2>
+    <a href="tambahService.php" class="btn btn-primary" style="background-color:var(--primary-gold-dark);border:none;">
       + Add Service
     </a>
   </div>
 
-  <div class="card shadow-lg" style="background-color:#1a1a1a; border:1px solid #333;">
+  <div class="card shadow-sm service-card border-0">
     <div class="card-body">
-      <table class="table table-dark table-hover table-striped align-middle">
+      <table class="table table-hover align-middle">
         <thead>
-          <tr class="text-warning">
+          <tr class="text-dark fw-bold">
             <th scope="col">#</th>
             <th scope="col">Service Name</th>
             <th scope="col">Description</th>

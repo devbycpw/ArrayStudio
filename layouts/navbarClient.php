@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bgnav">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="index.html">Array Studio</a>
+    <a class="navbar-brand fw-bold" href="home.php">
+      <i class="bi bi-camera-reels-fill text-warning me-2"></i>Array Studio
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
       data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
       aria-expanded="false" aria-label="Toggle navigation">

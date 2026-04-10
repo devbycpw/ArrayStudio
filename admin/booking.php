@@ -24,11 +24,11 @@ $pendingBookings = getPendingBookings();
 $bentrok = getBentrokDates();
 
 ?>
-<div class="container-fluid" style="background:#0d0d0d; min-height: 100vh; padding: 2rem;">
-    <h2 class="text-light mb-4">Manajemen Booking</h2>
+<div class="container-fluid" style="background:var(--main-bg); min-height: 100vh; padding: 2rem;">
+    <h2 class="text-dark fw-bold mb-4">Manajemen Booking</h2>
 
     <!-- Kalender -->
-    <div id="calendar" class="mb-5 bg-dark p-3 rounded" style="color:#e0e0e0;"></div>
+    <div id="calendar" class="mb-5 bg-white shadow-sm p-3 rounded" style="color:var(--text-primary);"></div>
 
     <!-- Peringatan jika ada bentrok -->
     <?php if (!empty($bentrok)) : ?>
@@ -39,10 +39,10 @@ $bentrok = getBentrokDates();
     <?php endif; ?>
 
     <!-- Data Booking -->
-    <div class="card" style="background:#1a1a1a; border:none;">
+    <div class="card shadow-sm border-0 service-card">
         <div class="card-body">
-            <h4 class="text-light">Daftar Booking</h4>
-            <table class="table table-dark table-striped">
+            <h4 class="text-dark fw-bold">Daftar Booking</h4>
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Client</th>
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 title: '<?= addslashes($p['client_name']); ?>',
                 start: '<?= $p['date']; ?>',
-                color: '#ff9900'
+                color: '#C5A880'
             },
             <?php endforeach; ?>
         ]
