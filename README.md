@@ -1,4 +1,5 @@
-# Array Studio - Premium Photography Booking System
+# Array Studio - Photographer Booking & 
+Client Management System
 
 Selamat datang di masa depan manajemen studio fotografi. **Array Studio** bukan sekadar aplikasi pembuatan jadwal biasa; ini adalah platform bisnis terpadu *(All-in-One Business Platform)* yang dirancang khusus untuk meningkatkan nilai jual sebuah studio foto di mata kliennya, mengefisiensi operasional manajemen, dan mengamankan alur pendapatan *(revenue stream)* Anda.
 
